@@ -1,0 +1,91 @@
+graphs:
+  - id: monitor
+    nodes:
+    - id: sub
+      module: timeflux.nodes.zmq
+      class: Sub
+      params:
+        topics: [eeg]
+    # Continuously buffer the signal
+    - id: rolling_window
+      module: timeflux.nodes.window
+      class: Window
+      params:
+        length: 1.5
+        step: 0.5
+    # Compute the power spectral density
+    - id: psd
+      module: timeflux_dsp.nodes.spectral
+      class: Welch
+    - id: freq_bands
+      module: timeflux_dsp.nodes.spectral
+      class: Bands
+      params:
+        relative: true
+        bands:
+          13Hz: [12.5,13.5]
+          17Hz: [16.5,17.5]
+          23Hz: [22.5,23.5]
+          29Hz: [28.5,29.5]
+
+    {% for target in [13, 17, 23, 29] %}
+
+    - id: avg_channel_{{target}}Hz
+      module: timeflux.nodes.apply
+      class: ApplyMethod
+      params:
+        method: numpy.mean
+        axis: 1
+        apply_mode: reduce
+
+    - id: rename_{{target}}Hz
+      module: timeflux.nodes.axis
+      class: RenameColumns
+      params:
+        names: ['{{ target }}Hz']
+
+    {% endfor %}
+
+
+    - id: freqs_concat
+      module: timeflux_dsp.nodes.helpers
+      class: Concat
+
+
+
+    # Debug
+    - id: debug
+      module: timeflux.nodes.debug
+      class: Display
+
+    # UI
+    - id: ui
+      module: timeflux_ui.nodes.ui
+      class: UI
+    edges:
+      - source: sub:eeg
+        target: ui:eeg
+
+      - source: sub:eeg
+        target: rolling_window
+      - source: rolling_window
+        target: psd
+      - source: psd
+        target: freq_bands
+
+    {% for target in [13, 17, 23, 29] %}
+      - source: freq_bands:{{ target }}Hz
+        target: avg_channel_{{ target }}Hz
+      - source: avg_channel_{{ target }}Hz
+        target: rename_{{ target }}Hz
+      - source: rename_{{ target }}Hz
+        target: freqs_concat:{{ target }}Hz
+    {% endfor %}
+
+
+      - source: freqs_concat
+        target: debug
+
+
+      - source: freqs_concat
+        target: ui:freqs

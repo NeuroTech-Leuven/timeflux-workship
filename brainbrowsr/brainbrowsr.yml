@@ -1,0 +1,12 @@
+import:
+  - graphs/record.yml
+  #- graphs/preprocess.yml
+  - graphs/decode.yml
+  - graphs/monitor.yml
+
+graphs:
+  - id: broker
+    nodes:
+    - id: proxy
+      module: timeflux.nodes.zmq
+      class: Broker

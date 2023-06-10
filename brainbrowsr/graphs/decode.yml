@@ -1,0 +1,27 @@
+graphs:
+  - id: decode
+    nodes:
+    - id: sub
+      module: timeflux.nodes.zmq
+      class: Sub
+      params:
+        topics: [eeg]
+    # Cut epochs
+    - id: epochs
+      # Filter bank
+      id: filter_bank
+      module: timeflux_dsp.nodes.filters
+      class: FilterBank
+      params:
+        filters:
+          13Hz:
+            frequencies: [12.5,13.5]
+          17Hz:
+            frequencies: [16.5,17.5]
+          23Hz:
+            frequencies: [22.5,23.5]
+          29Hz:
+            frequencies: [28.5,29.5]
+    edges:
+      - source: sub:eeg
+        target: filter_bank

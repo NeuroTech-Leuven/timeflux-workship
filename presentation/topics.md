@@ -1,0 +1,6 @@
+-   YAML
+-   GUI
+-   Graph structure
+-   Brokers
+-   Simulation
+-   Headsets/LSL

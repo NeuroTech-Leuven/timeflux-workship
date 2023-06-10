@@ -1,0 +1,49 @@
+graphs:
+
+  - id: Broker
+    nodes:
+    - id: proxy
+      module: timeflux.nodes.zmq
+      class: Broker
+
+  - id: Headset
+    nodes:
+    - id: random_eeg
+      module: timeflux.nodes.random
+      class: Signal
+      params:
+        channels: 8
+        rate: 128
+        amplitude: 200
+        names:
+          - O1
+          - Oz
+          - O2
+          - PO7
+          - PO3
+          - POz
+          - PO4
+          - PO8
+        seed: 42
+    - id: publisher
+      module: timeflux.nodes.zmq
+      class: Pub
+      params:
+        topic: eeg
+    edges:
+    - source: random_eeg
+      target: publisher
+
+  - id: Monitoring
+    nodes:
+    - id: subscriber
+      module: timeflux.nodes.zmq
+      class: Sub
+      params:
+        topics: [eeg]
+    - id: monitor
+      module: timeflux_ui.nodes.ui
+      class: UI
+    edges:
+      - source: subscriber:eeg
+        target: monitor:eeg
