@@ -5,7 +5,9 @@ graphs:
       module: timeflux.nodes.zmq
       class: Sub
       params:
-        topics: [eeg]
+        topics:
+          - eeg
+          - events
     # Continuously buffer the signal
     - id: rolling_window
       module: timeflux.nodes.window
@@ -23,12 +25,11 @@ graphs:
       params:
         relative: true
         bands:
-          13Hz: [12.5,13.5]
-          17Hz: [16.5,17.5]
-          23Hz: [22.5,23.5]
-          29Hz: [28.5,29.5]
+        {% for target in [8,13,10,12] %}
+          {{ target }}Hz: [{{ target - 0.5 }}, {{ target + 0.5 }}]
+        {% endfor %}
 
-    {% for target in [13, 17, 23, 29] %}
+    {% for target in [8,13,10,12] %}
 
     - id: avg_channel_{{target}}Hz
       module: timeflux.nodes.apply
@@ -62,9 +63,14 @@ graphs:
     - id: ui
       module: timeflux_ui.nodes.ui
       class: UI
+      params:
+        port: 8001
     edges:
       - source: sub:eeg
         target: ui:eeg
+      - source: sub:events
+        target: ui:events
+
 
       - source: sub:eeg
         target: rolling_window
@@ -73,7 +79,7 @@ graphs:
       - source: psd
         target: freq_bands
 
-    {% for target in [13, 17, 23, 29] %}
+    {% for target in [8,13,10,12] %}
       - source: freq_bands:{{ target }}Hz
         target: avg_channel_{{ target }}Hz
       - source: avg_channel_{{ target }}Hz
@@ -83,8 +89,8 @@ graphs:
     {% endfor %}
 
 
-      - source: freqs_concat
-        target: debug
+    #      - source: freqs_concat
+    #        target: debug
 
 
       - source: freqs_concat

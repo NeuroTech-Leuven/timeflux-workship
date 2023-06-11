@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BrainBrowsR</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <script defer src="/common/assets/js/timeflux.js"></script>
+    <script defer src="assets/js/app.js"></script>
+  </head>
+  <body>
+    <div id="stimuli">
+      <img id="stim-up" class="stim" src="assets/images/stim_up.png" />
+      <img id="stim-on" class="stim" src="assets/images/stim_on.png" />
+      <img id="stim-down" class="stim" src="assets/images/stim_down.png" />
+      <img id="stim-like" class="stim" src="assets/images/stim_like.png" />
+    </div>
+    <input
+      type="button"
+      id="calibrate"
+      onclick="calibrate()"
+      value="Calibrate"
+    />
+  </body>
+</html>

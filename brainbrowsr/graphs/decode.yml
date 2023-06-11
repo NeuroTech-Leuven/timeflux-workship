@@ -5,7 +5,9 @@ graphs:
       module: timeflux.nodes.zmq
       class: Sub
       params:
-        topics: [eeg]
+        topics:
+          - eeg
+          - events
     # Cut epochs
     - id: epochs
       # Filter bank
@@ -22,6 +24,13 @@ graphs:
             frequencies: [22.5,23.5]
           29Hz:
             frequencies: [28.5,29.5]
+
+    - id: debug
+      module: timeflux.nodes.debug
+      class: Display
+
     edges:
       - source: sub:eeg
         target: filter_bank
+      - source: sub:events
+        target: debug

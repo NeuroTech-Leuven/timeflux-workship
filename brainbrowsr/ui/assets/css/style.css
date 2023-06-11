@@ -1,0 +1,60 @@
+body {
+  background-color: black;
+  position: relative;
+  height: 100vh;
+}
+
+#stimuli {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+
+  height: 70vh;
+  width: 80vw;
+  margin: auto;
+  padding: 5vw;
+}
+
+.stim {
+  width: 10vw;
+  height: auto;
+  position: absolute;
+}
+
+#stim-up {
+  /* 8Hz */
+  animation: flickerAnimation 0.125s infinite;
+  top: 0;
+  left: 0;
+}
+#stim-on {
+  /* 13Hz */
+  animation: flickerAnimation 0.076923077s infinite;
+  top: 0;
+  right: 0;
+}
+#stim-down {
+  /* 10Hz */
+  animation: flickerAnimation 0.1s infinite;
+  bottom: 0;
+  left: 0;
+}
+#stim-like {
+  /* 12Hz */
+  animation: flickerAnimation 0.083333333s infinite;
+  bottom: 0;
+  right: 0;
+}
+@keyframes flickerAnimation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
