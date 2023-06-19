@@ -25,18 +25,22 @@ graphs:
         rate: 1000
         design: butter
 
-    # Labeled testing epochs
+    # Event-locked epochs for training
     - id: training_epoch
       module: timeflux.nodes.epoch
-      class: Epoch
+      class: Samples
       params:
-        event_trigger: stim
-        before: 0.0
-        after: 1.0
+        trigger: stim
+        length: 1.0
+        rate: 1000
 
-    - id: trim
-      module: timeflux.nodes.epoch
-      class: Trim
+    # Sliding windows for evaluation
+    - id: sliding_window
+      module: timeflux.nodes.window
+      class: Slide
+      params:
+        length: 1.0
+        rate: 1000
 
     # ML pipeline
     - id: pipeline
@@ -60,11 +64,12 @@ graphs:
           - module: pyriemann.classification
             class: MDM
 
-    - id: debug
-      module: timeflux.nodes.debug
-      class: Display
+    # Publish
+    - id: pub
+      module: timeflux.nodes.zmq
+      class: Pub
       params:
-        meta: true
+        topic: events
 
     edges:
       # Preprocessing
@@ -77,11 +82,16 @@ graphs:
       - source: sub:events
         target: training_epoch:events
       - source: training_epoch
-        target: trim:0
-      - source: trim:0
         target: pipeline:training_0
       - source: sub:events
         target: pipeline:events
 
-      - source: trim:0
-        target: debug
+      # Evaluation
+      - source: filter_bank
+        target: sliding_window
+      - source: sliding_window
+        target: pipeline:0
+
+      # Publish
+      - source: pipeline:events
+        target: pub
