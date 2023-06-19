@@ -10,3 +10,5 @@ for the acquisition and real-time processing of biosignals.
     documentation](https://timeflux.io/assets/pdf/Timeflux_GBCIC2019.pdf)
 -   [The timeflux
     whitepaper](https://timeflux.io/assets/pdf/Timeflux_GBCIC2019.pdf)
+-   [Timeflux BCI](https://github.com/timeflux/timeflux_bci)
+    implementations of the classical BCI paradigms:

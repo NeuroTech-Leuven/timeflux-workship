@@ -23,6 +23,6 @@ graphs:
 
     edges:
       - source: sub:events
-        target: ui
+        target: ui:events
       - source: ui:events
         target: pub

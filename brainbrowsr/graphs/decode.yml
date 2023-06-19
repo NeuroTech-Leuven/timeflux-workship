@@ -1,6 +1,9 @@
+{% set freqs = [12,10,13,8] %}
 graphs:
   - id: decode
     nodes:
+
+    # Subscriber
     - id: sub
       module: timeflux.nodes.zmq
       class: Sub
@@ -8,29 +11,77 @@ graphs:
         topics:
           - eeg
           - events
-    # Cut epochs
-    - id: epochs
-      # Filter bank
-      id: filter_bank
+
+    # Filter bank
+    - id: filter_bank
       module: timeflux_dsp.nodes.filters
       class: FilterBank
       params:
         filters:
-          13Hz:
-            frequencies: [12.5,13.5]
-          17Hz:
-            frequencies: [16.5,17.5]
-          23Hz:
-            frequencies: [22.5,23.5]
-          29Hz:
-            frequencies: [28.5,29.5]
+          {% for freq in freqs %}
+          {{ freq }}Hz:
+            frequencies: [{{ freq-0.5 }}, {{ freq+0.5 }}]
+          {% endfor %}
+        rate: 1000
+        design: butter
+
+    # Labeled testing epochs
+    - id: training_epoch
+      module: timeflux.nodes.epoch
+      class: Epoch
+      params:
+        event_trigger: stim
+        before: 0.0
+        after: 1.0
+
+    - id: trim
+      module: timeflux.nodes.epoch
+      class: Trim
+
+    # ML pipeline
+    - id: pipeline
+      module: timeflux.nodes.ml
+      class: Pipeline
+      params:
+        mode: predict_proba
+        event_start_accumulation: calibration_start
+        event_stop_accumulation: calibration_stop
+        event_start_training: calibration_stop
+        meta_label: [epoch,context]
+        steps:
+          - module: timeflux.estimators.transformers.shape
+            class: Transpose
+            args:
+              axes: [0,2,1]
+          - module: pyriemann.estimation
+            class: Covariances
+            args:
+              estimator: lwf
+          - module: pyriemann.classification
+            class: MDM
 
     - id: debug
       module: timeflux.nodes.debug
       class: Display
+      params:
+        meta: true
 
     edges:
+      # Preprocessing
       - source: sub:eeg
         target: filter_bank
+
+      # Training
+      - source: filter_bank
+        target: training_epoch
       - source: sub:events
+        target: training_epoch:events
+      - source: training_epoch
+        target: trim:0
+      - source: trim:0
+        target: pipeline:training_0
+      - source: sub:events
+        target: pipeline:events
+
+      - source: trim:0
         target: debug

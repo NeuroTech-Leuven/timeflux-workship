@@ -1,6 +1,5 @@
--   YAML
--   GUI
 -   Graph structure
--   Brokers
--   Simulation
--   Headsets/LSL
+-   YAML
+-   Pub/Sub
+-   GUI
+-   Simulation/Headsets/LSL
