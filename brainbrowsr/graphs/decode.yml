@@ -47,7 +47,7 @@ graphs:
       module: timeflux.nodes.ml
       class: Pipeline
       params:
-        mode: predict_proba
+        mode: predict
         event_start_accumulation: calibration_start
         event_stop_accumulation: calibration_stop
         event_start_training: calibration_stop

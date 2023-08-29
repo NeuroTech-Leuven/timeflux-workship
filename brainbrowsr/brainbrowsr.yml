@@ -1,8 +1,6 @@
 import:
   - graphs/record.yml
-  # - graphs/preprocess.yml
   - graphs/decode.yml
-    #- graphs/monitor.yml
   - graphs/ui.yml
 
 graphs:

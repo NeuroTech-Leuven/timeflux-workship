@@ -1,28 +1,35 @@
 graphs:
   - id: ui
     nodes:
-    - id: sub
-      module: timeflux.nodes.zmq
-      class: Sub
-      params:
-        topics: [events]
+      - id: sub
+        module: timeflux.nodes.zmq
+        class: Sub
+        params:
+          topics: [events]
 
-    - id: ui
-      module: timeflux_ui.nodes.ui
-      class: UI
-      params:
-        port: 8000
-        routes:
-          brainbrowsr: ui
+      - id: ui
+        module: timeflux_ui.nodes.ui
+        class: UI
+        params:
+          port: 8000
+          routes:
+            brainbrowsr: ui
 
-    - id: pub
-      module: timeflux.nodes.zmq
-      class: Pub
-      params:
-        topic: events
+      - id: pub
+        module: timeflux.nodes.zmq
+        class: Pub
+        params:
+          topic: events
+
+      - id: debug
+        module: timeflux.nodes.debug
+        class: Display
 
     edges:
       - source: sub:events
         target: ui:events
       - source: ui:events
         target: pub
+
+      - source: sub:events
+        target: debug
