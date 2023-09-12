@@ -21,15 +21,8 @@ graphs:
         params:
           topic: events
 
-      - id: debug
-        module: timeflux.nodes.debug
-        class: Display
-
     edges:
       - source: sub:events
         target: ui:events
       - source: ui:events
         target: pub
-
-      - source: sub:events
-        target: debug

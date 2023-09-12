@@ -5,12 +5,12 @@ body {
 }
 
 #stimuli {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-
+  z-indes: -1;
   height: 70vh;
   width: 80vw;
   margin: auto;
@@ -57,4 +57,9 @@ body {
   100% {
     opacity: 1;
   }
+}
+
+#content {
+  width: 340px;
+  margin: 20vh auto;
 }

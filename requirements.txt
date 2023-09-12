@@ -1,4 +1,5 @@
 timeflux
 timeflux_ui
+timeflux_dsp
 graphviz
 pyriemann

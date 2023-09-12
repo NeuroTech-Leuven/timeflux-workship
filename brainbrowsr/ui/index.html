@@ -5,19 +5,69 @@
     <link rel="stylesheet" href="assets/css/style.css" />
     <script defer src="/common/assets/js/timeflux.js"></script>
     <script defer src="assets/js/app.js"></script>
+    <div id="fb-root"></div>
+    <script
+      async
+      defer
+      crossorigin="anonymous"
+      src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0"
+      nonce="Zrq4XR4R"
+    ></script>
   </head>
   <body>
     <div id="stimuli">
-      <img id="stim-up" class="stim" src="assets/images/stim_up.png" />
-      <img id="stim-on" class="stim" src="assets/images/stim_on.png" />
-      <img id="stim-down" class="stim" src="assets/images/stim_down.png" />
-      <img id="stim-like" class="stim" src="assets/images/stim_like.png" />
+      <img
+        id="stim-up"
+        onclick="selectUp()"
+        class="stim"
+        src="assets/images/stim_up.png"
+      />
+      <img
+        id="stim-on"
+        onclick="selectOn()"
+        class="stim"
+        src="assets/images/stim_on.png"
+      />
+      <img
+        id="stim-down"
+        onclick="selectDown()"
+        class="stim"
+        src="assets/images/stim_down.png"
+      />
+      <img
+        id="stim-like"
+        onclick="selectLike()"
+        class="stim"
+        src="assets/images/stim_like.png"
+      />
     </div>
-    <input
-      type="button"
-      id="calibrate"
-      onclick="calibrate()"
-      value="Calibrate"
-    />
+    <div id="content">
+      <div
+        class="fb-page"
+        data-href="https://www.facebook.com/neurotechx"
+        data-tabs="timeline"
+        data-width=""
+        data-height=""
+        data-small-header="false"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="true"
+      >
+        <blockquote
+          cite="https://www.facebook.com/neurotechx"
+          class="fb-xfbml-parse-ignore"
+        >
+          <a href="https://www.facebook.com/neurotechx">NeuroTechX</a>
+        </blockquote>
+      </div>
+      <br />
+      <br />
+      <input
+        type="button"
+        id="calibrate"
+        onclick="calibrate()"
+        value="Calibrate"
+      />
+    </div>
   </body>
 </html>
