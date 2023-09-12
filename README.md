@@ -12,3 +12,10 @@ for the acquisition and real-time processing of biosignals.
     whitepaper](https://timeflux.io/assets/pdf/Timeflux_GBCIC2019.pdf)
 -   [Timeflux BCI](https://github.com/timeflux/timeflux_bci)
     implementations of the classical BCI paradigms:
+
+## To run the BrainBrowsR example
+
+Launch the Google Chrome/Chromium web browser with the following
+command-line options
+`chromium-browser --disable-web-security --disable-features=IsolateOrigins,site-per-process --disable-site-isolation-trials --user-data-dir=<TEMP_DATA_DIR>`
+to allow controlling the Facebook iframe from whithin our JS app.
