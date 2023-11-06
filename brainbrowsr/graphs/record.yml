@@ -1,7 +1,7 @@
 graphs:
   - id: record
     nodes:
-      - id: random_eeg
+      - id: simulated
         module: timeflux.nodes.random
         class: Signal
         params:
@@ -10,12 +10,20 @@ graphs:
           amplitude: 200
           names: [O1, Oz, O2, PO7, PO3, POz, PO4, PO8]
           seed: 42
+
+      - id: lsl
+        module: timeflux.nodes.lsl
+        class: Receive
+        params:
+          prop: name
+          value: {{ MENTALAB_NAME }}_ExG
+
       - id: pub
         module: timeflux.nodes.zmq
         class: Pub
         params:
-          topic: eeg
+          topic: raw_eeg
 
     edges:
-      - source: random_eeg
+      - source: {{ DATA_SOURCE }}
         target: pub

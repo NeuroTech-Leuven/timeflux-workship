@@ -9,7 +9,7 @@ graphs:
       class: Sub
       params:
         topics:
-          - eeg
+          - raw_eeg
           - events
 
     # Filter bank
@@ -74,7 +74,7 @@ graphs:
 
     edges:
       # Preprocessing
-      - source: sub:eeg
+      - source: sub:raw_eeg
         target: filter_bank
 
       # Training

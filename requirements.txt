@@ -1,5 +1,12 @@
+# Timeflux
 timeflux
 timeflux_ui
 timeflux_dsp
 graphviz
+
+#Decoding
 pyriemann
+
+# Mentalab and labstreaminglayer
+pylsl
+explorepy

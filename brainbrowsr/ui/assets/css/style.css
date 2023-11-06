@@ -21,42 +21,64 @@ body {
   width: 10vw;
   height: auto;
   position: absolute;
+  animation-name: flashAnimation;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 #stim-up {
   /* 8Hz */
-  animation: flickerAnimation 0.125s infinite;
+  animation-duration: calc(1s / 8);
   top: 0;
   left: 0;
 }
 #stim-on {
   /* 13Hz */
-  animation: flickerAnimation 0.076923077s infinite;
+  animation-duration: calc(1s / 13);
   top: 0;
   right: 0;
 }
 #stim-down {
   /* 10Hz */
-  animation: flickerAnimation 0.1s infinite;
+  animation-duration: calc(1s / 10);
   bottom: 0;
   left: 0;
 }
 #stim-like {
   /* 12Hz */
-  animation: flickerAnimation 0.083333333s infinite;
+  animation-duration: calc(1s / 12);
   bottom: 0;
   right: 0;
 }
-@keyframes flickerAnimation {
+/*@keyframes flashAnimation {
   0% {
-    opacity: 1;
+    opacity: 0.5;
   }
-  50% {
+  25% {
     opacity: 0;
   }
-  100% {
+  50% {
+    opacity: 0.5;
+  }
+  75% {
     opacity: 1;
   }
+  100% {
+    opacity: 0.5;
+  }
+}
+*/
+@keyframes flashAnimation{
+	0% {
+		opacity: 0;
+	}
+	50% {
+		opacity 1;
+	}
+	100% {
+		opacity 0;
+	}
+
 }
 
 #content {
