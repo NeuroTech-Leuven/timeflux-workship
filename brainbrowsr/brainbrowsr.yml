@@ -2,6 +2,7 @@ import:
   - graphs/record.yml
   - graphs/decode.yml
   - graphs/ui.yml
+  - graphs/monitor.yml
 
 graphs:
   - id: broker
