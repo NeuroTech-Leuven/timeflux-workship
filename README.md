@@ -6,6 +6,16 @@ for the acquisition and real-time processing of biosignals.
 ## Installation
 
 ## Usage
+```
+podman run --net=host -e DATA_SOURCE=simulated -p 8000:8000 -p 8001:8001 --privileged -it localhost/timeflux-workshop:latest
+```
+
+
+```
+podman run --net=host -e DATA_SOURCE=lsl -e MENTALAB_NAME=Explore_8559 -p 8000:8000 -p 8001:8001 --privileged -it localhost/timeflux-workshop:latest
+```
+
+
 
 
 ## Useful resources
