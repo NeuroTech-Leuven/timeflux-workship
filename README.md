@@ -6,6 +6,7 @@ for the acquisition and real-time processing of biosignals.
 ## Installation
 
 Make sure you have [docker](https://docs.docker.com/engine/install/) (or [podman](https://podman.io/docs/installation)) installed.
+If you run Windows, you might need either the Mentalab [Explore-desktop](https://github.com/Mentalab-hub/explore-desktop) app or [explorepy](https://github.com/Mentalab-hub/explorepy) to connect to the Mentalab headset and push the data to the Labstreaming Layer. If you use linux, this should be fully handled by the container.
 
 ## Usage
 
