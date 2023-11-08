@@ -18,7 +18,7 @@ body {
 }
 
 .stim {
-  width: 10vw;
+  width: 20vw;
   height: auto;
   position: absolute;
   animation-name: flashAnimation;
@@ -69,6 +69,7 @@ body {
 }
 */
 @keyframes flashAnimation{
+	/*
 	0% {
 		opacity: 0;
 	}
@@ -78,6 +79,18 @@ body {
 	100% {
 		opacity 0;
 	}
+	*/
+	0% {
+		filter: invert(0%);
+	}
+	50% {
+		filter: invert(100%);
+	}
+	100% {
+		filter: invert(0%);
+	}
+
+
 
 }
 
