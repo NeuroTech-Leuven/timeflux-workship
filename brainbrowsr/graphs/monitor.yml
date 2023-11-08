@@ -88,10 +88,10 @@ graphs:
       class: UI
       params:
         port: 8001
-        settings:
-          monitor:
-            minValue: -200
-            maxValue: 200
+          #settings:
+          #  monitor:
+          #    minValue: -200
+          #    maxValue: 200
 
     edges:
       - source: sub:raw_eeg

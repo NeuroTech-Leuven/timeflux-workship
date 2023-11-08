@@ -11,4 +11,5 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./brainbrowsr .
 RUN chmod +x run.sh
+RUN ln -s /usr/bin/python3 /usr/bin/pythonRUN ln -s /usr/bin/python3 /usr/bin/python & \
 CMD ./run.sh

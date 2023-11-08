@@ -39,7 +39,7 @@ graphs:
       module: timeflux.nodes.window
       class: Slide
       params:
-        length: 1.0
+        length: 3.0
         rate: 1000
 
     # ML pipeline
@@ -72,6 +72,11 @@ graphs:
       params:
         topic: events
 
+    # Debug
+    - id: debug
+      module: timeflux.nodes.debug
+      class: Display
+
     edges:
       # Preprocessing
       - source: sub:raw_eeg
@@ -96,3 +101,8 @@ graphs:
       # Publish
       - source: pipeline:events
         target: pub
+
+      # Debug
+      #- source: pipeline:events
+      - source: training_epoch
+        target: debug

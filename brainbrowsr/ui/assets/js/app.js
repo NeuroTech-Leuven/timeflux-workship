@@ -5,6 +5,7 @@ let io = new IO();
 let stimuli = document.getElementsByClassName('stim');
 
 const CALIBRATION_RUNS = 5;
+//const CALIBRATION_RUNS = 1;
 const CALIBRATION_DURATION = 5000;
 const CALIBRATION_EVENT_DELAY = 1000;
 
@@ -43,12 +44,12 @@ async function calibrate(){
 }
 
 // ========== Interface operation ==========
-var powerState = false;
+var powerState =true;
 var currentPost = 0;
 
 function selectUp() {
-    if (!powerState)
-        return
+    //if (!powerState)
+    //    return
 	console.log('up');
     const posts = getPosts();
     currentPost = Math.max(currentPost-1, 0);
@@ -57,8 +58,8 @@ function selectUp() {
 }
 
 function selectDown(){
-    if (!powerState)
-        return
+    //if (!powerState)
+    //    return
 	console.log('down');
     const posts = getPosts();
     currentPost = Math.min(currentPost+1, posts.length-1);
@@ -76,8 +77,8 @@ function selectOn(){
 }
 
 function selectLike(){
-    if (!powerState)
-        return
+    //if (!powerState)
+    //    return
 	console.log('like');
     const posts = getPosts();
     //getLikeButton(posts[currentPost]).click();
