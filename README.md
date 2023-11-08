@@ -18,8 +18,10 @@ docker run --net=host -e DATA_SOURCE=simulated --publish-all --privileged -it lo
 
 Running an LSL server connected to the Mentalab headset and running timeflux
 ```
-podman run --net=host -e DATA_SOURCE=lsl -e MENTALAB_NAME=<MENTALAB_NAME> --publish-all --privileged -it localhost/timeflux-workshop:latest
+docker run --net=host -e DATA_SOURCE=lsl -e MENTALAB_NAME=<MENTALAB_NAME> --publish-all --privileged -it localhost/timeflux-workshop:latest
 ```
+
+If you want to change and test the code without having to rebuild the container image, clone the code and run the docker command with the added option `-v ./brainbrowsr:/project` to mount your code changes directly into the container.
 
 ### To open the BrainBrowsR example
 
