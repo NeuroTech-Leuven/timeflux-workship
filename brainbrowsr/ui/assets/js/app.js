@@ -5,7 +5,6 @@ let io = new IO();
 let stimuli = document.getElementsByClassName('stim');
 
 const CALIBRATION_RUNS = 5;
-//const CALIBRATION_RUNS = 1;
 const CALIBRATION_DURATION = 5000;
 const CALIBRATION_EVENT_DELAY = 1000;
 
@@ -53,7 +52,6 @@ function selectUp() {
 	console.log('up');
     const posts = getPosts();
     currentPost = Math.max(currentPost-1, 0);
-    console.log(currentPost);
     posts[currentPost].scrollIntoView();
 }
 

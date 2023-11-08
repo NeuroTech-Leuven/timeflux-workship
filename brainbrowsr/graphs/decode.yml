@@ -62,6 +62,8 @@ graphs:
             class: Covariances
             args:
               estimator: lwf
+          - module: pyriemann.tangentspace
+            class: FGDA
           - module: pyriemann.classification
             class: MDM
 
@@ -71,11 +73,6 @@ graphs:
       class: Pub
       params:
         topic: events
-
-    # Debug
-    - id: debug
-      module: timeflux.nodes.debug
-      class: Display
 
     edges:
       # Preprocessing
@@ -101,8 +98,3 @@ graphs:
       # Publish
       - source: pipeline:events
         target: pub
-
-      # Debug
-      #- source: pipeline:events
-      - source: training_epoch
-        target: debug
